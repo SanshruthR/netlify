@@ -69,8 +69,7 @@
 </a>
 
 <script>
-// Babylon.js Script (unchanged)
-document.addEventListener('DOMContentLoaded', function() {
+// Babylon.js Script
 var canvas = document.getElementById("renderCanvas");
 canvas.style.width = '100vw';
 canvas.style.height = '100vh';
@@ -78,36 +77,44 @@ canvas.style.height = '100vh';
 var engine = new BABYLON.Engine(canvas, true);
 
 var createScene = function () {
-var scene = new BABYLON.Scene(engine);
-scene.clearColor = new BABYLON.Color4(0.1, 0.1, 0.1, 1);
+  var scene = new BABYLON.Scene(engine);
+  scene.clearColor = new BABYLON.Color4(0.1, 0.1, 0.1, 1);
 
-var camera = new BABYLON.ArcRotateCamera("camera", 1.54, 1.04, 5.4, BABYLON.Vector3.Zero(), scene);
-camera.attachControl(canvas, true);
+  var camera = new BABYLON.ArcRotateCamera("camera", 1.54, 1.04, 5.4, BABYLON.Vector3.Zero(), scene);
+  camera.attachControl(canvas, true);
 
-var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, -1, 0), scene);
+  var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, -1, 0), scene);
 
-BABYLON.SceneLoader.ImportMesh("", "", "https://sanshruth.netlify.app/robot_playground.glb", scene, function (newMeshes) {
-// Do something with the loaded mesh if needed
-});
+  BABYLON.SceneLoader.ImportMesh("", "", "https://sanshruth.netlify.app/robot_playground.glb", scene, function (newMeshes) {
+    // Do something with the loaded mesh if needed
 
-scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssao", camera);
+    // Now that the .glb file is loaded, render the website
+    renderWebsite();
+  });
 
-return scene;
+  scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssao", camera);
+
+  return scene;
 };
 
 var scene = createScene();
 
 engine.runRenderLoop(function () {
-scene.render();
+  scene.render();
 });
 
 window.addEventListener("resize", function () {
-engine.resize();
+  engine.resize();
 });
-});
+
+// Function to render the website
+function renderWebsite() {
+  // Your website rendering code here
+}
 </script>
 <script>
-    const images = [
+  // Image swapping code
+  const images = [
     "https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white",
     "https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white",
     "https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white",
@@ -125,13 +132,14 @@ engine.resize();
     "https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white",
     "https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white",
     "https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black"
-];
-let currentImageIndex = 0;
-setInterval(() => {
+  ];
+
+  let currentImageIndex = 0;
+
+  setInterval(() => {
     currentImageIndex = (currentImageIndex + 1) % images.length;
     document.getElementById("button-image").src = images[currentImageIndex];
-}, 2100);
-
+  }, 2100);
 </script>
 </body>
 </html>
