@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Babylon.js 3D Object</title>
+  <style>
+    /* ... (styles as provided in your original code) ... */
+
+    /* Background color to match the animation scene */
+    body {
+      background-color: black; /* Match the animation scene's background color */
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Neon green button with glowing effect */
+    .contact-button {
+      background-color: black; /* Background color */
+      color: #00ff00;
+      border: none;
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      animation: glow 1s infinite alternate;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-decoration: none;
+      z-index: 1;
+    }
+
+    .contact-button:hover {
+      background-color: #00ff00; /* Hover background color */
+      color: black;
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 10px #00ff00;
+      }
+      100% {
+        box-shadow: 0 0 20px #00ff00;
+      }
+    }
+    
+    /* Position the second button on top of the first one */
+    .contact-button2 {
+      position: absolute;
+      bottom: 100px; /* Adjust the position to increase spacing */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+  </style>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+</head>
+<body>
+<canvas id="renderCanvas"></canvas>
+
+<!-- First "Contact Me" Button -->
+<a class="contact-button" href="https://github.com/SanshruthR" target="_blank">Portfolio</a>
+
+<a class="contact-button contact-button2" href="https://github.com/SanshruthR" target="_blank" >
+   <img id="button-image" src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" alt="Contact Me">
+</a>
+
+<script>
+// Babylon.js Script (unchanged)
+document.addEventListener('DOMContentLoaded', function() {
+var canvas = document.getElementById("renderCanvas");
+canvas.style.width = '100vw';
+canvas.style.height = '100vh';
+
+var engine = new BABYLON.Engine(canvas, true);
+
+var createScene = function () {
+var scene = new BABYLON.Scene(engine);
+scene.clearColor = new BABYLON.Color4(0.1, 0.1, 0.1, 1);
+
+var camera = new BABYLON.ArcRotateCamera("camera", 1.54, 1.04, 5.4, BABYLON.Vector3.Zero(), scene);
+camera.attachControl(canvas, true);
+
+var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, -1, 0), scene);
+
+BABYLON.SceneLoader.ImportMesh("", "", "http://127.0.0.1:5500/deploy/profile/robot_playground.glb", scene, function (newMeshes) {
+// Do something with the loaded mesh if needed
+});
+
+scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssao", camera);
+
+return scene;
+};
+
+var scene = createScene();
+
+engine.runRenderLoop(function () {
+scene.render();
+});
+
+window.addEventListener("resize", function () {
+engine.resize();
+});
+});
+</script>
+<script>
+    const images = [
+    "https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white",
+    "https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white",
+    "https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white",
+    "https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white",
+    "https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white",
+    "https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54",
+    "https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase",
+    "https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7",
+    "https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white",
+    "https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white",
+    "https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white",
+    "https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi",
+    "https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white",
+    "https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB",
+    "https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white",
+    "https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white",
+    "https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black"
+];
+let currentImageIndex = 0;
+setInterval(() => {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    document.getElementById("button-image").src = images[currentImageIndex];
+}, 2100);
+
+</script>
+</body>
+</html>
